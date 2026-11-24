@@ -147,7 +147,8 @@ def call_live(segment: Segment, notices: list[Notice], n: int, batch: int, model
     prompt = build_prompt(segment, notices, n, batch)
     ids = [x.id for x in notices]
     start = time.monotonic()
-    response = client.beta.messages.create(
+    # Streamed because max_tokens is large; get_final_message() returns the whole reply.
+    with client.beta.messages.stream(
         model=model,
         max_tokens=32000,
         system=SYSTEM,
@@ -155,7 +156,8 @@ def call_live(segment: Segment, notices: list[Notice], n: int, batch: int, model
         output_config={"effort": "medium", "format": {"type": "json_schema", "schema": schema(ids)}},
         betas=["server-side-fallback-2026-07-01"],
         fallbacks="default",
-    )
+    ) as stream:
+        response = stream.get_final_message()
     latency = time.monotonic() - start
     if response.stop_reason == "refusal":
         raise RuntimeError(f"{segment.id} batch {batch}: the model declined")

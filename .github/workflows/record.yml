@@ -23,6 +23,7 @@ jobs:
         run: test -n "$ANTHROPIC_API_KEY" || (echo "Add the ANTHROPIC_API_KEY repo secret first" && exit 1)
       - name: Live panel, 8 segments x 2 calls x 20 people
         run: |
+          set -o pipefail
           rm -f recordings/panel.jsonl
           NOTICESIM_LIVE=1 noticesim run notices/*.md | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Refuse partial recordings
