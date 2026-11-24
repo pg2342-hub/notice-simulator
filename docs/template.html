@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notice Simulator</title>
+<meta name="description" content="{{DESC}}">
+<style>
+.head h1{margin:24px 0 12px}
+.head .lead{max-width:52em;margin:0}
+.desk{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px 24px;align-items:start;margin-top:28px}
+.compose{border:1px solid var(--rule);border-radius:16px;background:#fbfaf6;padding:20px 22px;min-width:0}
+.lab{display:block;font:500 15px/1.3 var(--sans);margin:0 0 10px}
+.lab+.seg{margin-bottom:14px}
+.seg{display:flex;width:fit-content;max-width:100%;flex-wrap:wrap;gap:2px;padding:3px;border:1px solid var(--rule);border-radius:999px;background:#fff}
+.seg button{min-height:34px;padding:0 14px;border:0;border-radius:999px;background:transparent;color:var(--ink-2);font:500 14px/1 var(--sans);cursor:pointer}
+.seg button[aria-checked=true]{background:var(--ink);color:var(--paper)}
+.notice{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.55;white-space:pre-wrap;max-height:300px;overflow:auto;margin:0 0 20px}
+.segs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.sb{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:40px;padding:0 12px;border:1px solid var(--rule);border-radius:10px;background:#fff;font:400 14px/1.2 var(--sans);color:var(--ink);cursor:pointer;text-align:left}
+.sb[aria-checked=true]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.sb small{font:500 10.5px/1 var(--mono);letter-spacing:.04em;white-space:nowrap}
+.sb small.ok{color:var(--green)}
+.sb[aria-checked=true] small.ok{color:#9fd3b4}
+.sb small.no{opacity:.75}
+.doc{border:1px solid var(--rule);border-radius:16px;background:#fff;box-shadow:0 24px 48px -32px rgb(27 26 23/.35);min-width:0;overflow:hidden}
+.dhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px 20px;padding:22px 26px 16px;border-bottom:1px solid var(--rule)}
+.dhead h2{all:unset;display:block;font:400 26px/1.15 var(--serif)}
+.dsub{font:12.5px/1.5 var(--mono);color:var(--ink-2);margin-top:6px}
+.badge{display:inline-flex;align-items:center;min-height:30px;padding:0 14px;border-radius:999px;font:500 12.5px/1 var(--mono);letter-spacing:.05em;white-space:nowrap}
+.badge.ok{background:var(--green-wash);color:var(--green)}
+.badge.no{background:var(--ink);color:var(--paper)}
+.big{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--rule)}
+.big div{padding:16px 26px}
+.big div+div{border-left:1px solid var(--rule-soft)}
+.big b{display:block;font:400 40px/1 var(--serif);font-variant-numeric:tabular-nums}
+.big span{display:block;font-size:13px;color:var(--ink-2);margin-top:6px;line-height:1.35}
+.cmp{padding:16px 26px;border-bottom:1px solid var(--rule)}
+.cmp h3,.voices h3,.cal h3{all:unset;display:block;font:500 14px/1.3 var(--sans);margin-bottom:10px}
+.bar{display:grid;grid-template-columns:8.5em minmax(0,1fr) 3.2em;align-items:center;gap:10px;font-size:13.5px;margin:6px 0}
+.bar .tr{height:12px;border-radius:6px;background:var(--rule-soft);overflow:hidden}
+.bar .fill{height:100%;background:var(--ink-2);border-radius:6px}
+.bar.cur .fill{background:var(--green)}
+.bar.cur .nm{font-weight:500}
+.bar .pc{font:12.5px/1 var(--mono);text-align:right}
+.pick{font-size:13.5px;color:var(--ink-2);margin-top:8px}
+.pick b{color:var(--ink);font-weight:500}
+.voices{padding:16px 26px;border-bottom:1px solid var(--rule)}
+.voices ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.voices li{font-size:14px;line-height:1.45;margin:0}
+.voices li::before{content:"\201C"}.voices li::after{content:"\201D"}
+.cal{padding:16px 26px 20px;background:#fbfaf6}
+.cal table{width:100%;border-collapse:collapse;font-size:13.5px}
+.cal td,.cal th{padding:5px 0;border-bottom:1px solid var(--rule-soft);text-align:left;font-weight:400}
+.cal th{color:var(--ink-2);font-size:12.5px}
+.cal td.r,.cal th.r{text-align:right;font-variant-numeric:tabular-nums;padding-left:10px;white-space:nowrap}
+.cal td.out{font-weight:500}
+.cal td.out::after{content:" off";font:11px/1 var(--mono);color:var(--ink-2)}
+.cal p{margin:8px 0 0;font-size:13px;color:var(--ink-2)}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:56px;align-items:start;margin-top:16px}
+.side{position:sticky;top:24px;margin-top:64px;display:grid;gap:22px;font-size:14px;color:var(--ink-2)}
+.side h3{margin:0 0 6px;font:500 13px/1.3 var(--sans);color:var(--ink)}
+.side p{margin:0}
+.side nav a{display:block;padding:5px 0;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--rule-soft)}
+.side nav a:hover{color:var(--ink)}
+.side pre{font-size:12px;margin:6px 0 0;white-space:pre-wrap}
+.content section{scroll-margin-top:16px}
+.point{font-size:17px;max-width:42em;margin:0 0 20px}
+.note{color:var(--ink-2);font-size:15px;max-width:44em;margin-top:14px}
+.board{border:1px solid var(--rule);border-radius:16px;background:#fbfaf6;overflow:hidden}
+.brow{display:grid;grid-template-columns:minmax(0,12em) 7.5em repeat(3,minmax(0,1fr));gap:12px;align-items:center;padding:12px 20px}
+.brow+.brow{border-top:1px solid var(--rule-soft)}
+.brow.h{font-size:12.5px;color:var(--ink-2);padding-top:14px;padding-bottom:10px}
+.brow .nm{font-weight:500;font-size:14.5px}
+.brow .cell{font:14px/1 var(--mono);font-variant-numeric:tabular-nums;padding:8px 10px;border-radius:8px;border:1px solid transparent}
+.brow .cell.best{background:var(--green-wash);color:var(--green);font-weight:500}
+.brow.untrusted .cell.best{background:repeating-linear-gradient(135deg,transparent 0 5px,rgb(27 26 23/.08) 5px 7px);color:var(--ink);border-color:var(--ink)}
+.brow .t{justify-self:start}
+.sm{font:500 11px/1 var(--mono);padding:5px 8px;border-radius:999px;white-space:nowrap}
+.sm.ok{background:var(--green-wash);color:var(--green)}
+.sm.no{background:var(--ink);color:var(--paper)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 20px;padding:12px 20px;border-top:1px solid var(--rule);color:var(--ink-2);font-size:13px}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{width:14px;height:12px;border-radius:3px}
+.legend .b1{background:var(--green-wash)}
+.legend .b2{border:1px solid var(--ink);background:repeating-linear-gradient(135deg,transparent 0 3px,rgb(27 26 23/.15) 3px 4px)}
+.figure{border:1px solid var(--rule);border-radius:16px;background:#fbfaf6;padding:18px 20px}
+.scrollx{overflow-x:auto}
+.calib{display:block;width:100%;min-width:640px;height:auto;font-family:var(--sans)}
+.calib .sl{font-size:17px;fill:var(--ink)}
+.calib .st{font:16px var(--mono)}.calib .st.ok{fill:var(--green)}.calib .st.no{fill:var(--ink)}
+.calib .qh{font:16px var(--mono);fill:var(--ink-2)}
+.calib .band{fill:var(--green-wash)}
+.calib .truth{stroke:var(--ink);stroke-width:2}
+.calib .dot.in{fill:var(--green)}
+.calib .dot.out{fill:var(--paper);stroke:var(--ink);stroke-width:2.5}
+.calib .dot.far{fill:var(--ink)}
+.qkey{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 24px;margin:14px 0 0;padding-left:22px;font-size:13.5px;color:var(--ink-2)}
+.steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.step{border:1px solid var(--rule);border-radius:16px;background:#fbfaf6;padding:18px 20px;min-width:0}
+.step h3{margin:0 0 6px;font:400 21px/1.25 var(--serif)}
+.step p{margin:0;font-size:14.5px;color:var(--ink-2)}
+ul.lim{margin:0;padding-left:20px;max-width:46em}
+ul.lim li{margin-bottom:10px}
+@media (max-width:1000px){.layout{grid-template-columns:minmax(0,1fr);gap:0}.side{position:static;margin-top:48px}}
+@media (max-width:860px){.desk{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){
+ .compose{padding:16px}.dhead{padding:18px 18px 14px}.dhead h2{font-size:22px}
+ .big div{padding:14px 16px}.big b{font-size:30px}.cmp,.voices,.cal{padding-left:18px;padding-right:18px}
+ .segs{grid-template-columns:minmax(0,1fr)}
+ .brow{grid-template-columns:minmax(0,1fr) auto;padding:12px 16px}
+ .brow .cell{grid-column:auto}
+ .brow.h{display:none}
+ .brow .cell::before{content:attr(data-n) " ";font-weight:400;color:var(--ink-2)}
+ .steps,.qkey{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+</head>
+<body>
+<main>
+<div class="head">
+  <h1>Notice Simulator</h1>
+  <p class="lead">Pick a notice telling cardholders their account is moving to a new bank, then pick a customer segment. A panel of simulated cardholders written by Claude predicts how that segment reacts. Each segment is marked trusted or not, based on how closely its panel matched real answers to the Federal Reserve's 2025 household survey.</p>
+</div>
+
+<section class="desk" id="tool" aria-label="Try a notice on a segment">
+  <div class="compose">
+    <span class="lab" id="nlab">Notice</span>
+    <div class="seg" role="radiogroup" aria-labelledby="nlab" id="nseg"></div>
+    <div class="notice" id="ntext" tabindex="0" aria-label="Notice text"></div>
+    <span class="lab" id="slab">Segment</span>
+    <div class="segs" role="radiogroup" aria-labelledby="slab" id="sseg"></div>
+  </div>
+  <article class="doc" id="out" aria-live="polite"></article>
+</section>
+
+<div class="layout">
+<div class="content">
+  <section id="board-s">
+    <h2>Which notice wins where</h2>
+    <p class="point">Share of card holders in each segment who would set up the new login within a week. The best notice for a segment is only a recommendation when that segment's panel is trusted; otherwise it needs real research first.</p>
+    <div class="board" id="board"></div>
+  </section>
+
+  <section id="trust">
+    <h2>Why some segments are trusted</h2>
+    <p class="point">Before anyone reads a reaction, every simulated person also answers seven questions the Federal Reserve asked about 13,000 adults. A segment is trusted when its panel lands within {{TOL}} points of the real answer on at least {{MIN}} of {{OF}} questions. <b>{{TRUSTED}} of {{NSEG}}</b> segments passed in this run.</p>
+    <div class="figure">
+      <div class="scrollx">{{CALIB_SVG}}</div>
+      <ol class="qkey">{{QLIST}}</ol>
+      <div class="legend" style="border-top:0;padding:10px 0 0"><span><i style="width:2px;height:14px;background:var(--ink)"></i>SHED answer</span><span><i class="b1"></i>Within {{TOL}} points</span><span><i style="width:10px;height:10px;border-radius:50%;background:var(--green)"></i>Panel, within</span><span><i style="width:10px;height:10px;border-radius:50%;border:2px solid var(--ink)"></i>Panel, outside</span><span><i style="width:10px;height:10px;border-radius:50%;background:var(--ink)"></i>Off the scale (hover for the number)</span><span>Drawn to scale: the band is plus or minus {{TOL}} points. Column number = question.</span></div>
+    </div>
+  </section>
+
+  <section id="how">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step"><h3>One call, twenty people</h3><p>Each Claude call writes 20 distinct people from one segment, with a profile, their seven survey answers and their reaction to every notice. {{CALLS}} calls give {{PER_SEG}} people per segment.</p></div>
+      <div class="step"><h3>Check before you trust</h3><p>Panel shares are computed on the same base the report uses (balances among card holders, overdraft fees among banked adults) and compared with the published table.</p></div>
+      <div class="step"><h3>Read the reactions</h3><p>Only card holders react. For each notice: set up the login within a week, first suspect a scam, and whether they would keep, use less or close the card.</p></div>
+      <div class="step"><h3>Recorded, then replayed</h3><p>Live runs are recorded with a fingerprint of the prompt and model. This page and CI replay the recording, so a changed prompt can never reuse an old answer.</p></div>
+    </div>
+  </section>
+
+  <section id="limits">
+    <h2>Limits</h2>
+    <ul class="lim">
+      <li>Trust is measured on survey questions, not on reactions to notices. A panel that matches card ownership is a reason to take its reactions seriously, not proof they are right. A real pilot would back-test reactions against a wave of notices that already went out.</li>
+      <li>The model may have read this Federal Reserve report in training, which would flatter the match. The check shows agreement, not independent proof.</li>
+      <li>With {{PER_SEG}} people per segment, a share moves in steps of a few points and carries sampling noise of up to about 8 points, which is why the tolerance is {{TOL}} points.</li>
+      <li>Segments are income bands and age bands, one at a time, because those are the rows the report publishes.</li>
+    </ul>
+  </section>
+</div>
+
+<aside class="side" aria-label="About this build">
+  <nav aria-label="On this page"><a href="#tool">Try it</a><a href="#board-s">Which notice wins where</a><a href="#trust">Why some segments are trusted</a><a href="#how">How it works</a><a href="#limits">Limits</a></nav>
+  <div><h3>Data</h3><p>Real: survey answers from the Federal Reserve's Economic Well-Being of U.S. Households in 2025 report (SHED, tables 31, 32, 35, 40, 41). Simulated: every person and reaction, written by {{MODEL}} in one recorded run ({{PEOPLE}} people, ${{COST}}, about {{LAT}} s per call). Invented: the three notices and the banks named in them.</p></div>
+  <div><h3>Run it yourself</h3><p>Python 3.10+. Replays the recording, no key needed. Set NOTICESIM_LIVE=1 and an Anthropic API key to run a new panel.</p><pre>pip install -e .
+noticesim run notices/*.md</pre></div>
+  <div><a class="pill" href="https://github.com/pg2342-hub/notice-simulator">Code on GitHub</a></div>
+</aside>
+</div>
+</main>
+<script id="data" type="application/json">{{DATA}}</script>
+<script>
+const R=JSON.parse(document.getElementById('data').textContent);
+const N={};R.notices.forEach(n=>N[n.id]=n);
+const S={};R.segments.forEach(s=>S[s.id]=s);
+const QL={banked:'Has a bank account',has_card:'Has a credit card',carried_balance:'Carried a card balance',used_bnpl:'Used Buy Now, Pay Later',paid_overdraft:'Paid an overdraft fee',card_fraud:'Had credit card fraud',nonbank_check:'Used a check casher or money order'};
+let cur={n:R.notices[0].id,s:'{{FIRST}}'};
+const pc=v=>v==null?'n/a':(Math.round(v))+'%';
+const e=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function radio(box,items,key){
+  box.innerHTML='';
+  items.forEach(it=>{
+    const b=document.createElement('button');b.type='button';b.setAttribute('role','radio');b.dataset.id=it.id;
+    if(key==='s'){b.className='sb';const t=S[it.id].calibration.trusted;b.innerHTML=`<span>${e(it.label)}</span><small class="${t?'ok':'no'}">${t?'TRUSTED':'NOT TRUSTED'}</small>`;}
+    else b.textContent=it.name;
+    b.addEventListener('click',()=>{cur[key]=it.id;render();});
+    box.appendChild(b);
+  });
+  box.addEventListener('keydown',ev=>{
+    if(!['ArrowRight','ArrowLeft','ArrowDown','ArrowUp'].includes(ev.key))return;
+    const bs=[...box.querySelectorAll('button')];const i=bs.findIndex(x=>x.dataset.id===cur[key]);
+    const j=(i+(ev.key==='ArrowRight'||ev.key==='ArrowDown'?1:-1)+bs.length)%bs.length;
+    cur[key]=bs[j].dataset.id;render();bs[j].focus();ev.preventDefault();
+  });
+}
+function render(){
+  document.querySelectorAll('#nseg button').forEach(b=>{const on=b.dataset.id===cur.n;b.setAttribute('aria-checked',on);b.tabIndex=on?0:-1;});
+  document.querySelectorAll('#sseg button').forEach(b=>{const on=b.dataset.id===cur.s;b.setAttribute('aria-checked',on);b.tabIndex=on?0:-1;});
+  document.getElementById('ntext').textContent=N[cur.n].text;
+  const s=S[cur.s],r=s.reactions[cur.n],c=s.calibration,t=c.trusted;
+  const bars=R.notices.map(n=>{const v=s.reactions[n.id].setup_within_week||0;return `<div class="bar ${n.id===cur.n?'cur':''}"><span class="nm">${e(n.name)}</span><span class="tr"><span class="fill" style="width:${v}%;display:block"></span></span><span class="pc">${pc(v)}</span></div>`}).join('');
+  const best=N[s.best_notice].name;
+  const pick=t?`Best for this segment: <b>${e(best)}</b>.`:`The panel leans to <b>${e(best)}</b>, but this segment is not trusted, so check with real research before acting on it.`;
+  const rows=c.rows.map(x=>`<tr><td>${e(QL[x.question])}</td><td class="r">${pc(x.simulated)}</td><td class="r">${pc(x.shed)}</td><td class="r ${x.within?'':'out'}">${x.error>0?'+':''}${Math.round(x.error)}</td></tr>`).join('');
+  document.getElementById('out').innerHTML=`
+   <div class="dhead"><div><h2>${e(s.label)}</h2><div class="dsub">${e(N[cur.n].name)} notice, ${r.n} simulated card holders</div></div><span class="badge ${t?'ok':'no'}">${t?'TRUSTED':'NOT TRUSTED'}</span></div>
+   <div class="big"><div><b>${pc(r.setup_within_week)}</b><span>set up the new login within a week</span></div><div><b>${pc(r.suspects_scam)}</b><span>first suspect a scam</span></div><div><b>${pc(r.close_or_move)}</b><span>would close the card or move their spending</span></div></div>
+   <div class="cmp"><h3>Login within a week, all three notices</h3>${bars}<p class="pick">${pick}</p></div>
+   <div class="voices"><h3>In their words</h3><ul>${r.quotes.map(q=>`<li>${e(q)}</li>`).join('')}</ul></div>
+   <div class="cal"><h3>Trust check: ${c.within} of 7 within {{TOL}} points</h3><table><thead><tr><th>Survey question</th><th class="r">Panel</th><th class="r">SHED</th><th class="r">Gap</th></tr></thead><tbody>${rows}</tbody></table><p>Mean gap ${c.mae} points. Trusted means at least {{MIN}} of {{OF}} within {{TOL}} points.</p></div>`;
+}
+radio(document.getElementById('nseg'),R.notices,'n');
+radio(document.getElementById('sseg'),R.segments,'s');
+render();
+const ids=R.notices.map(n=>n.id);
+document.getElementById('board').innerHTML=
+ `<div class="brow h"><span>Segment</span><span>Panel</span>${R.notices.map(n=>`<span>${e(n.name)}</span>`).join('')}</div>`+
+ R.segments.map(s=>{const t=s.calibration.trusted;return `<div class="brow ${t?'':'untrusted'}"><span class="nm">${e(s.label)}</span><span class="t"><span class="sm ${t?'ok':'no'}">${t?'TRUSTED':'NOT TRUSTED'}</span></span>${ids.map(i=>`<span class="cell ${i===s.best_notice?'best':''}" data-n="${e(N[i].name)}">${pc(s.reactions[i].setup_within_week)}</span>`).join('')}</div>`}).join('')+
+ `<div class="legend"><span><i class="b1"></i>Best notice, segment trusted</span><span><i class="b2"></i>Best notice, segment not trusted: research first</span></div>`;
+</script>
+</body>
+</html>

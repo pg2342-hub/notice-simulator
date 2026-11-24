@@ -1,0 +1,27 @@
+{
+  "source": "Board of Governors of the Federal Reserve System, Economic Well-Being of U.S. Households in 2025 (SHED), May 2026",
+  "survey": "Survey of Household Economics and Decisionmaking, about 13,000 adults, fielded October 2025",
+  "pages": {
+    "credit": "https://www.federalreserve.gov/publications/2026-economic-well-being-of-us-households-in-2025-credit.htm",
+    "banking": "https://www.federalreserve.gov/publications/2026-economic-well-being-of-us-households-in-2025-banking.htm"
+  },
+  "questions": {
+    "banked":          {"text": "Has a checking, savings, or money market account (self or spouse/partner)", "base": "all adults", "table": "Table 31 (100 minus unbanked rate)"},
+    "has_card":        {"text": "Has a credit card", "base": "all adults", "table": "Table 40"},
+    "carried_balance": {"text": "Carried a credit card balance at least once in the past 12 months", "base": "credit card holders", "table": "Table 40"},
+    "used_bnpl":       {"text": "Used Buy Now, Pay Later in the past 12 months", "base": "all adults", "table": "Table 41"},
+    "paid_overdraft":  {"text": "Paid an overdraft fee in the past 12 months", "base": "adults with a bank account", "table": "Table 31"},
+    "card_fraud":      {"text": "Experienced credit card fraud in the past 12 months", "base": "all adults", "table": "Table 35 (income reported as under $50,000, so both lower bands use 13)"},
+    "nonbank_check":   {"text": "Used nonbank check cashing or money orders in the past 12 months", "base": "all adults", "table": "Table 32"}
+  },
+  "segments": {
+    "inc_lt25":  {"banked": 79, "has_card": 46, "carried_balance": 52, "used_bnpl": 18, "paid_overdraft": 17, "card_fraud": 13, "nonbank_check": 23},
+    "inc_25_50": {"banked": 92, "has_card": 71, "carried_balance": 57, "used_bnpl": 23, "paid_overdraft": 20, "card_fraud": 13, "nonbank_check": 21},
+    "inc_50_100":{"banked": 97, "has_card": 88, "carried_balance": 50, "used_bnpl": 18, "paid_overdraft": 12, "card_fraud": 16, "nonbank_check": 12},
+    "inc_100p":  {"banked": 99, "has_card": 97, "carried_balance": 37, "used_bnpl": 12, "paid_overdraft": 6,  "card_fraud": 17, "nonbank_check": 5},
+    "age_18_29": {"banked": 88, "has_card": 65, "carried_balance": 46, "used_bnpl": 22, "paid_overdraft": 15, "card_fraud": 9,  "nonbank_check": 17},
+    "age_30_44": {"banked": 92, "has_card": 78, "carried_balance": 50, "used_bnpl": 21, "paid_overdraft": 16, "card_fraud": 13, "nonbank_check": 15},
+    "age_45_59": {"banked": 96, "has_card": 86, "carried_balance": 52, "used_bnpl": 17, "paid_overdraft": 13, "card_fraud": 17, "nonbank_check": 11},
+    "age_60p":   {"banked": 98, "has_card": 92, "carried_balance": 36, "used_bnpl": 9,  "paid_overdraft": 5,  "card_fraud": 22, "nonbank_check": 9}
+  }
+}

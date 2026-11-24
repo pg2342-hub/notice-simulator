@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -e ".[dev]"
+      - run: ruff check . && ruff format --check .
+      - run: pytest -q
+      - name: Replay the recorded panel and check the committed results and demo page
+        run: |
+          if [ ! -s recordings/panel.jsonl ]; then
+            echo "No recorded live run yet: run the 'Record a live run' workflow." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          noticesim run notices/*.md --out /tmp/run.json | tee -a "$GITHUB_STEP_SUMMARY"
+          diff <(python -m json.tool /tmp/run.json) <(python -m json.tool results/run.json)
+          python scripts/build_demo.py
+          git diff --exit-code docs/index.html

@@ -1,0 +1,49 @@
+name: Record a live run
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - name: Check the key is set
+        run: test -n "$ANTHROPIC_API_KEY" || (echo "Add the ANTHROPIC_API_KEY repo secret first" && exit 1)
+      - name: Live panel, 8 segments x 2 calls x 20 people
+        run: |
+          rm -f recordings/panel.jsonl
+          NOTICESIM_LIVE=1 noticesim run notices/*.md | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Refuse partial recordings
+        run: test "$(wc -l < recordings/panel.jsonl)" -eq 16
+      - name: Rebuild the demo page from the recording
+        run: python scripts/build_demo.py
+      - name: Commit the recording and demo, publish Pages
+        run: |
+          git config user.name "Pranav Gudise"
+          git config user.email "273664482+pg2342-hub@users.noreply.github.com"
+          git add recordings results docs
+          git commit -m "Record a live panel run and rebuild the demo"
+          git push
+          if git ls-remote --exit-code origin gh-pages >/dev/null; then
+            git fetch origin gh-pages
+            c=$(git commit-tree "$(git rev-parse HEAD:docs)" -p origin/gh-pages -m "Publish the demo page")
+          else
+            c=$(git commit-tree "$(git rev-parse HEAD:docs)" -m "Publish the demo page")
+          fi
+          git push origin "$c:refs/heads/gh-pages"
+      - name: Run CI on the new commit (pushes made by this workflow do not trigger it)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run ci.yml --ref "${{ github.ref_name }}"
