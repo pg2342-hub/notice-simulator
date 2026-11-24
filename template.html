@@ -92,6 +92,10 @@
 .calib .qh{font:16px var(--mono);fill:var(--ink-2)}
 .calib .band{fill:var(--green-wash)}
 .calib .truth{stroke:var(--ink);stroke-width:2}
+.hist{margin-top:20px}.hist h3{font:400 20px var(--serif);margin:0 0 10px}
+.tt{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+.tt td,.tt th{padding:8px 10px 8px 0;border-bottom:1px solid var(--rule-soft);text-align:left;vertical-align:top;font-weight:400}
+.tt th{color:var(--ink-2);font-size:12.5px}.tt td:nth-child(n+3){white-space:nowrap}
 .calib .dot.in{fill:var(--green)}
 .calib .dot.out{fill:var(--paper);stroke:var(--ink);stroke-width:2.5}
 .calib .dot.far{fill:var(--ink)}
@@ -150,6 +154,7 @@ ul.lim li{margin-bottom:10px}
       <ol class="qkey">{{QLIST}}</ol>
       <div class="legend" style="border-top:0;padding:10px 0 0"><span><i style="width:2px;height:14px;background:var(--ink)"></i>SHED answer</span><span><i class="b1"></i>Within {{TOL}} points</span><span><i style="width:10px;height:10px;border-radius:50%;background:var(--green)"></i>Panel, within</span><span><i style="width:10px;height:10px;border-radius:50%;border:2px solid var(--ink)"></i>Panel, outside</span><span><i style="width:10px;height:10px;border-radius:50%;background:var(--ink)"></i>Off the scale (hover for the number)</span><span>Drawn to scale: the band is plus or minus {{TOL}} points. Column number = question.</span></div>
     </div>
+    {{HISTORY}}
   </section>
 
   <section id="how">
@@ -169,6 +174,7 @@ ul.lim li{margin-bottom:10px}
       <li>The model may have read this Federal Reserve report in training, which would flatter the match. The check shows agreement, not independent proof.</li>
       <li>With {{PER_SEG}} people per segment, a share moves in steps of a few points and carries sampling noise of up to about 8 points, which is why the tolerance is {{TOL}} points.</li>
       <li>Segments are income bands and age bands, one at a time, because those are the rows the report publishes.</li>
+      <li>Run 1 trusted no segment: its panels overstated overdraft fees, Buy Now, Pay Later and check cashing in every group. Run 2 changed the persona brief after seeing that, so its score is a second attempt on the same questions, not a fresh test.</li>
     </ul>
   </section>
 </div>
