@@ -74,6 +74,56 @@ def calib_svg(result: dict) -> str:
     )
 
 
+RUNS = [
+    ("run1.json", "Run 1", "Segment description only; the brief also asked for people who are not good with money"),
+    (
+        None,
+        "Run 2",
+        (
+            "Each group grounded in its SHED 2025 share doing okay financially (Table 1, not a checked question); "
+            "brief asks for a random sample, not memorable hardship"
+        ),
+    ),
+]
+
+
+def run_summary(result: dict) -> tuple[int, int, int, float]:
+    segs = result["segments"]
+    within = sum(s["calibration"]["within"] for s in segs)
+    total = sum(len(s["calibration"]["rows"]) for s in segs)
+    mae = sum(s["calibration"]["mae"] for s in segs) / len(segs)
+    return result["trusted"], within, total, mae
+
+
+def history(result: dict) -> str:
+    """Every recorded run, so an earlier failed attempt stays visible next to the current one."""
+    rows = []
+    for fname, label, change in RUNS:
+        if fname is None:
+            r = result
+        else:
+            path = ROOT / "results" / fname
+            if not path.exists():
+                continue
+            r = json.loads(path.read_text(encoding="utf-8"))
+        trusted, within, total, mae = run_summary(r)
+        rows.append(
+            f"<tr><td>{esc(label)}</td><td>{esc(change)}</td><td>{trusted} of {len(r['segments'])}</td>"
+            f"<td>{within} of {total}</td><td>{mae:.1f}</td><td>${r['run']['cost_usd']:.2f}</td></tr>"
+        )
+    if len(rows) < 2:
+        return ""
+    return (
+        '<div class="figure hist"><h3>Every run so far</h3><div class="scrollx"><table class="tt"><thead><tr>'
+        "<th>Run</th><th>Personas</th><th>Segments trusted</th><th>Answers within 10 points</th>"
+        "<th>Mean gap, points</th><th>Cost</th></tr></thead><tbody>"
+        + "".join(rows)
+        + '</tbody></table></div><p class="note">The trust rule is the same in every run. Run 2\'s brief was '
+        "changed after seeing where run 1 missed, so it is a second attempt, not an independent test. "
+        "Run 1's recording stays in the repo.</p></div>"
+    )
+
+
 def build(result: dict) -> str:
     data = json.dumps(result, ensure_ascii=False).replace("</", "<\\/")
     run = result["run"]
@@ -90,6 +140,7 @@ def build(result: dict) -> str:
         template.replace("{{DESC}}", esc(desc))
         .replace("{{DATA}}", data)
         .replace("{{CALIB_SVG}}", calib_svg(result))
+        .replace("{{HISTORY}}", history(result))
         .replace("{{QLIST}}", qlist)
         .replace("{{TRUSTED}}", str(result["trusted"]))
         .replace("{{NSEG}}", str(n_seg))

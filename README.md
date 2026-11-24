@@ -46,6 +46,7 @@ Add your own notice as a markdown file with `id` and `name` front matter in `not
 ## Limits
 
 - Trust is measured on survey questions, not on reactions to notices. A real pilot would back-test reactions against a wave that already went out.
+- Run 1 (`results/run1.json`, `recordings/run1_panel.jsonl`) trusted no segment: the panels overstated overdraft fees, Buy Now, Pay Later and check cashing in every group. Run 2 grounds each group in its SHED 2025 share doing okay financially (Table 1, not one of the checked questions) and asks for a random sample rather than memorable hardship. The trust rule did not change, but run 2's brief was written after seeing run 1's misses, so it is a second attempt, not an independent test.
 - The model may have read the Federal Reserve report in training, which would flatter the match.
 - 40 people per segment means sampling noise of up to about 8 points on a share; the tolerance is 10.
 

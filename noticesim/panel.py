@@ -33,9 +33,11 @@ CALIBRATION_KEYS = [
 CARD_PLANS = ["keep_using", "use_less", "close_or_move"]
 
 SYSTEM = """You run a simulated survey panel for consumer research. You write realistic,
-individual people and answer as each of them would, including people who are disorganized,
-distrustful, busy, or not good with money. Do not aim for any published statistic. Vary
-age, job, household, region, and attitudes within the segment you are given."""
+individual people and answer as each of them would. Draw them the way a random sample of the
+segment would turn out, not the most memorable cases: for most people most years are
+financially uneventful, and hardship should be as common as it really is, no more and no less.
+Do not aim for any published statistic in the questions. Vary age, job, household, region, and
+attitudes within the segment you are given."""
 
 QUESTIONS = """Calibration questions (answer for each person about the past 12 months):
 - banked: they or their spouse/partner have a checking, savings, or money market account
@@ -97,6 +99,10 @@ def build_prompt(segment: Segment, notices: list[Notice], n: int, batch: int) ->
     blocks = "\n\n".join(f'<notice id="{x.id}">\n{x.text}\n</notice>' for x in notices)
     return (
         f"Segment: {segment.who}.\n"
+        f"Grounding from the same survey (not one of the questions below): {segment.doing_okay}% of "
+        f"this group say they are doing okay or living comfortably financially, and the rest say they "
+        f"are just getting by or finding it difficult. Write a group with about that mix, and let each "
+        f"person's answers follow from their situation.\n"
         f"Write {n} different people from this segment (batch {batch + 1}; make them distinct "
         f"from people another batch would write). Give each a one-line profile.\n\n"
         f"{QUESTIONS}\n\n{REACTION}\n\nNotices:\n\n{blocks}"

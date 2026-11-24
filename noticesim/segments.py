@@ -10,19 +10,26 @@ class Segment:
     id: str
     label: str
     who: str
+    # Share "doing okay" or "living comfortably" financially, SHED 2025 Table 1 (Overall Financial
+    # Well-Being). Used only to ground the personas; it is not one of the seven checked questions.
+    doing_okay: int
 
 
 SEGMENTS: list[Segment] = [
-    Segment("inc_lt25", "Income under $25K", "US adults whose family income is under $25,000 a year, any age"),
-    Segment("inc_25_50", "Income $25K to $50K", "US adults whose family income is $25,000 to $49,999 a year, any age"),
+    Segment("inc_lt25", "Income under $25K", "US adults whose family income is under $25,000 a year, any age", 45),
     Segment(
-        "inc_50_100", "Income $50K to $100K", "US adults whose family income is $50,000 to $99,999 a year, any age"
+        "inc_25_50", "Income $25K to $50K", "US adults whose family income is $25,000 to $49,999 a year, any age", 55
     ),
-    Segment("inc_100p", "Income $100K or more", "US adults whose family income is $100,000 a year or more, any age"),
-    Segment("age_18_29", "Age 18 to 29", "US adults aged 18 to 29, any income"),
-    Segment("age_30_44", "Age 30 to 44", "US adults aged 30 to 44, any income"),
-    Segment("age_45_59", "Age 45 to 59", "US adults aged 45 to 59, any income"),
-    Segment("age_60p", "Age 60 or older", "US adults aged 60 or older, any income"),
+    Segment(
+        "inc_50_100", "Income $50K to $100K", "US adults whose family income is $50,000 to $99,999 a year, any age", 74
+    ),
+    Segment(
+        "inc_100p", "Income $100K or more", "US adults whose family income is $100,000 a year or more, any age", 91
+    ),
+    Segment("age_18_29", "Age 18 to 29", "US adults aged 18 to 29, any income", 63),
+    Segment("age_30_44", "Age 30 to 44", "US adults aged 30 to 44, any income", 68),
+    Segment("age_45_59", "Age 45 to 59", "US adults aged 45 to 59, any income", 74),
+    Segment("age_60p", "Age 60 or older", "US adults aged 60 or older, any income", 83),
 ]
 
 BY_ID = {s.id: s for s in SEGMENTS}
