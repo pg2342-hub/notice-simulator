@@ -39,7 +39,7 @@ def calib_svg(result: dict) -> str:
         rows.append(
             f'<text x="0" y="{y + 19}" class="sl">{esc(s["label"])}</text>'
             f'<text x="{left - 14}" y="{y + 19}" class="st {"ok" if trusted else "no"}" text-anchor="end">'
-            f'{s["calibration"]["within"]}/7</text>'
+            f"{s['calibration']['within']}/7</text>"
         )
         for i, row in enumerate(s["calibration"]["rows"]):
             x0 = left + i * cw
@@ -59,8 +59,8 @@ def calib_svg(result: dict) -> str:
                     cls += " far"
                 rows.append(
                     f'<circle cx="{ex:.1f}" cy="{y + rh / 2}" r="6.5" class="{cls}">'
-                    f'<title>{esc(s["label"])}, {esc(Q_LABEL[row["question"]])}: simulated {row["simulated"]}%, '
-                    f'SHED {row["shed"]}% ({err:+g} points)</title></circle>'
+                    f"<title>{esc(s['label'])}, {esc(Q_LABEL[row['question']])}: simulated {row['simulated']}%, "
+                    f"SHED {row['shed']}% ({err:+g} points)</title></circle>"
                 )
         y += rh + gap
     heads = "".join(
