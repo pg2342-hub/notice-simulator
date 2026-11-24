@@ -172,8 +172,10 @@ ul.lim li{margin-bottom:10px}
     <ul class="lim">
       <li>Trust is measured on survey questions, not on reactions to notices. A panel that matches card ownership is a reason to take its reactions seriously, not proof they are right. A real pilot would back-test reactions against a wave of notices that already went out.</li>
       <li>The model may have read this Federal Reserve report in training, which would flatter the match. The check shows agreement, not independent proof.</li>
-      <li>With {{PER_SEG}} people per segment, a share moves in steps of a few points and carries sampling noise of up to about 8 points, which is why the tolerance is {{TOL}} points.</li>
+      <li>With {{PER_SEG}} people per segment, a share moves in steps of a few points and carries sampling noise of about 8 points (one standard error), which is why the tolerance is {{TOL}} points.</li>
       <li>Segments are income bands and age bands, one at a time, because those are the rows the report publishes.</li>
+      <li>Passing is a low bar. A plain guess with no model, each question's average across all eight groups used for every group, lands within {{TOL}} points on {{BASE_WITHIN}} of {{BASE_OF}} answers and passes {{BASE_PASS}} of {{NSEG}} groups. The check is better at ruling a panel out than at proving it right, and with {{PER_SEG}} people per group a share can miss by more than {{TOL}} points by chance alone.</li>
+      <li>The security-first notice tells readers how to know it is real, and the panel mostly takes it at its word. Real cardholders, and real phishers who copy that wording, may not behave that way.</li>
       <li>Run 1 trusted no segment: its panels overstated overdraft fees, Buy Now, Pay Later and check cashing in every group. Run 2 changed the persona brief after seeing that, so its score is a second attempt on the same questions, not a fresh test.</li>
     </ul>
   </section>

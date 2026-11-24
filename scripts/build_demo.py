@@ -124,6 +124,20 @@ def history(result: dict) -> str:
     )
 
 
+def baseline(result: dict) -> tuple[int, int, int]:
+    """A no-model guess: each question's average across all groups, used for every group, under the same rule."""
+    shed = json.loads((ROOT / "data" / "shed_2025.json").read_text(encoding="utf-8"))["segments"]
+    keys = list(Q_LABEL)
+    mean = {k: sum(shed[s][k] for s in shed) / len(shed) for k in keys}
+    tol, need = result["rule"]["tolerance_points"], result["rule"]["min_within"]
+    within = passed = 0
+    for s in shed:
+        w = sum(abs(mean[k] - shed[s][k]) <= tol for k in keys)
+        within += w
+        passed += w >= need
+    return within, len(shed) * len(keys), passed
+
+
 def build(result: dict) -> str:
     data = json.dumps(result, ensure_ascii=False).replace("</", "<\\/")
     run = result["run"]
@@ -141,6 +155,9 @@ def build(result: dict) -> str:
         .replace("{{DATA}}", data)
         .replace("{{CALIB_SVG}}", calib_svg(result))
         .replace("{{HISTORY}}", history(result))
+        .replace("{{BASE_WITHIN}}", str(baseline(result)[0]))
+        .replace("{{BASE_OF}}", str(baseline(result)[1]))
+        .replace("{{BASE_PASS}}", str(baseline(result)[2]))
         .replace("{{QLIST}}", qlist)
         .replace("{{TRUSTED}}", str(result["trusted"]))
         .replace("{{NSEG}}", str(n_seg))
