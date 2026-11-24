@@ -1,0 +1,931 @@
+{
+  "notices": [
+    {
+      "id": "a_plain",
+      "name": "Plain facts",
+      "text": "Subject: Your Meridian card account is moving to Harbor Bank\n\nHarbor Bank acquired Meridian, and your Meridian credit card account will move to Harbor Bank on March 9.\n\nWhat stays the same: your card number, your rewards balance, your credit limit, and your scheduled payments.\n\nWhat changes: after March 9 you will manage your card on the Harbor Bank website and app. You will need to create a Harbor Bank login the first time you sign in. Your Meridian login will stop working on that date.\n\nTo get ready, open the Meridian app now and follow the prompt to set up your Harbor Bank login. It takes about five minutes."
+    },
+    {
+      "id": "b_benefits",
+      "name": "Benefits first",
+      "text": "Subject: Good news: more ways to earn with your Meridian card\n\nStarting March 9, your Meridian card comes with new Harbor Bank perks: up to 10% cash back at hundreds of online stores through Harbor Offers, and 5% back on hotels and rental cars booked through Harbor Travel. Your current rewards rate and balance stay exactly as they are.\n\nTo start using these perks, set up your Harbor Bank login. Open the Meridian app and follow the prompt. It takes about five minutes.\n\nAfter March 9 you will manage your card on the Harbor Bank website and app, and your Meridian login will stop working. Your card number, credit limit, and scheduled payments do not change."
+    },
+    {
+      "id": "c_security",
+      "name": "Security first",
+      "text": "Subject: Your Meridian card is moving to Harbor Bank. Here is how to know this message is real.\n\nYour Meridian credit card account moves to Harbor Bank on March 9. Your card number, rewards balance, credit limit, and scheduled payments stay the same.\n\nHow to set up your new login safely: do not click links in emails or texts about this move, including this one. Open the Meridian app you already have, and it will walk you through creating your Harbor Bank login. It takes about five minutes. Harbor Bank will never call or text you to ask for your password, PIN, or a one-time code.\n\nAfter March 9 you will manage your card on the Harbor Bank website and app, and your Meridian login will stop working."
+    }
+  ],
+  "rule": {
+    "tolerance_points": 10.0,
+    "min_within": 6,
+    "of": 7
+  },
+  "segments": [
+    {
+      "id": "inc_lt25",
+      "label": "Income under $25K",
+      "people": 40,
+      "calibration": {
+        "rows": [
+          {
+            "question": "banked",
+            "simulated": 80.0,
+            "shed": 79,
+            "error": 1.0,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "has_card",
+            "simulated": 52.5,
+            "shed": 46,
+            "error": 6.5,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "carried_balance",
+            "simulated": 61.9,
+            "shed": 52,
+            "error": 9.9,
+            "within": true,
+            "n": 21
+          },
+          {
+            "question": "used_bnpl",
+            "simulated": 40.0,
+            "shed": 18,
+            "error": 22.0,
+            "within": false,
+            "n": 40
+          },
+          {
+            "question": "paid_overdraft",
+            "simulated": 43.8,
+            "shed": 17,
+            "error": 26.8,
+            "within": false,
+            "n": 32
+          },
+          {
+            "question": "card_fraud",
+            "simulated": 15.0,
+            "shed": 13,
+            "error": 2.0,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "nonbank_check",
+            "simulated": 57.5,
+            "shed": 23,
+            "error": 34.5,
+            "within": false,
+            "n": 40
+          }
+        ],
+        "within": 4,
+        "mae": 14.7,
+        "trusted": false
+      },
+      "reactions": {
+        "a_plain": {
+          "n": 21,
+          "setup_within_week": 38.1,
+          "suspects_scam": 38.1,
+          "close_or_move": 4.8,
+          "use_less": 4.8,
+          "quotes": [
+            "I'll wait till my granddaughter visits and have her look at it, I don't fool with that app.",
+            "Five minutes in the app, fine, I don't want to get locked out when my payment's due.",
+            "Got burned by fraud last year, so anything telling me to set up a new login I'm side-eyeing.",
+            "Bank mergers happen, I'll do it in the app between orders."
+          ]
+        },
+        "b_benefits": {
+          "n": 21,
+          "setup_within_week": 42.9,
+          "suspects_scam": 52.4,
+          "close_or_move": 0.0,
+          "use_less": 19.0,
+          "quotes": [
+            "Ten percent back sounds like one of those things they warn you about on the news.",
+            "Cash back on online stuff is basically free money, I'm in.",
+            "Nobody's handing out ten percent back, this smells like a hook.",
+            "5% on rental cars could actually help me when my car's in the shop."
+          ]
+        },
+        "c_security": {
+          "n": 21,
+          "setup_within_week": 61.9,
+          "suspects_scam": 4.8,
+          "close_or_move": 0.0,
+          "use_less": 4.8,
+          "quotes": [
+            "At least they told me not to click anything, but I'm calling the number on my card before I do a thing.",
+            "I'll just open the app like it says and knock it out on my break.",
+            "Since it says use the app I already got, I'll do it that way and not touch the email.",
+            "Good they said don't click links, I've had my card hit before so I go straight to the app anyway."
+          ]
+        }
+      },
+      "best_notice": "c_security",
+      "recommendation": null
+    },
+    {
+      "id": "inc_25_50",
+      "label": "Income $25K to $50K",
+      "people": 40,
+      "calibration": {
+        "rows": [
+          {
+            "question": "banked",
+            "simulated": 92.5,
+            "shed": 92,
+            "error": 0.5,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "has_card",
+            "simulated": 67.5,
+            "shed": 71,
+            "error": -3.5,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "carried_balance",
+            "simulated": 63.0,
+            "shed": 57,
+            "error": 6.0,
+            "within": true,
+            "n": 27
+          },
+          {
+            "question": "used_bnpl",
+            "simulated": 45.0,
+            "shed": 23,
+            "error": 22.0,
+            "within": false,
+            "n": 40
+          },
+          {
+            "question": "paid_overdraft",
+            "simulated": 35.1,
+            "shed": 20,
+            "error": 15.1,
+            "within": false,
+            "n": 37
+          },
+          {
+            "question": "card_fraud",
+            "simulated": 15.0,
+            "shed": 13,
+            "error": 2.0,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "nonbank_check",
+            "simulated": 37.5,
+            "shed": 21,
+            "error": 16.5,
+            "within": false,
+            "n": 40
+          }
+        ],
+        "within": 4,
+        "mae": 9.4,
+        "trusted": false
+      },
+      "reactions": {
+        "a_plain": {
+          "n": 27,
+          "setup_within_week": 37.0,
+          "suspects_scam": 22.2,
+          "close_or_move": 3.7,
+          "use_less": 14.8,
+          "quotes": [
+            "I'll do it when the app makes me, I'm working doubles this week.",
+            "Some bank I never heard of says it bought my card, I'm calling the number on the back first.",
+            "Easy enough, I'll do it tonight so autopay doesn't break.",
+            "I'll forward it to my wife, she's the one who logs in."
+          ]
+        },
+        "b_benefits": {
+          "n": 27,
+          "setup_within_week": 51.9,
+          "suspects_scam": 44.4,
+          "close_or_move": 3.7,
+          "use_less": 14.8,
+          "quotes": [
+            "10% back sounds like one of those too-good-to-be-true emails.",
+            "Nobody gives you 10% back for free, that's bait.",
+            "More cash back on stuff I already buy online? Setting it up now.",
+            "We don't book hotels much so the perks don't do a lot for us."
+          ]
+        },
+        "c_security": {
+          "n": 27,
+          "setup_within_week": 51.9,
+          "suspects_scam": 3.7,
+          "close_or_move": 0.0,
+          "use_less": 3.7,
+          "quotes": [
+            "It told me not to click anything, so I just opened my app on break and did it.",
+            "Reads more honest, but my wife handles the app and I'll have her look at it.",
+            "After my card got hit last year I like that they spelled out what's real.",
+            "Makes sense, my wife will get to it before March."
+          ]
+        }
+      },
+      "best_notice": "c_security",
+      "recommendation": null
+    },
+    {
+      "id": "inc_50_100",
+      "label": "Income $50K to $100K",
+      "people": 40,
+      "calibration": {
+        "rows": [
+          {
+            "question": "banked",
+            "simulated": 95.0,
+            "shed": 97,
+            "error": -2.0,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "has_card",
+            "simulated": 82.5,
+            "shed": 88,
+            "error": -5.5,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "carried_balance",
+            "simulated": 45.5,
+            "shed": 50,
+            "error": -4.5,
+            "within": true,
+            "n": 33
+          },
+          {
+            "question": "used_bnpl",
+            "simulated": 35.0,
+            "shed": 18,
+            "error": 17.0,
+            "within": false,
+            "n": 40
+          },
+          {
+            "question": "paid_overdraft",
+            "simulated": 28.9,
+            "shed": 12,
+            "error": 16.9,
+            "within": false,
+            "n": 38
+          },
+          {
+            "question": "card_fraud",
+            "simulated": 25.0,
+            "shed": 16,
+            "error": 9.0,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "nonbank_check",
+            "simulated": 27.5,
+            "shed": 12,
+            "error": 15.5,
+            "within": false,
+            "n": 40
+          }
+        ],
+        "within": 4,
+        "mae": 10.1,
+        "trusted": false
+      },
+      "reactions": {
+        "a_plain": {
+          "n": 33,
+          "setup_within_week": 36.4,
+          "suspects_scam": 21.2,
+          "close_or_move": 0.0,
+          "use_less": 3.0,
+          "quotes": [
+            "I'll get to it before March, it's not like I can switch cards with what I owe.",
+            "My wife handles the logins, she'll do it when she gets a minute.",
+            "I'll call the number on the back of my card before I touch anything.",
+            "Rewards balance carries over, so I'll knock out the login now."
+          ]
+        },
+        "b_benefits": {
+          "n": 33,
+          "setup_within_week": 45.5,
+          "suspects_scam": 42.4,
+          "close_or_move": 0.0,
+          "use_less": 12.1,
+          "quotes": [
+            "Ten percent cash back sounds like a come-on, so I'd check with the bank first.",
+            "Cash back on online orders, yeah, I'll set that up tonight.",
+            "Nobody gives away ten percent, that smells like one of those scam emails.",
+            "Five percent on hotels beats my travel card, I'm in."
+          ]
+        },
+        "c_security": {
+          "n": 33,
+          "setup_within_week": 48.5,
+          "suspects_scam": 3.0,
+          "close_or_move": 0.0,
+          "use_less": 0.0,
+          "quotes": [
+            "They told me not to click anything, so I'll just open the app I already have.",
+            "Seems legit, I'll do it sometime before the date.",
+            "That sounds honest, but I'll have my nephew help me with the app when he visits.",
+            "Good that they say go through the app, I'll do it today."
+          ]
+        }
+      },
+      "best_notice": "c_security",
+      "recommendation": null
+    },
+    {
+      "id": "inc_100p",
+      "label": "Income $100K or more",
+      "people": 40,
+      "calibration": {
+        "rows": [
+          {
+            "question": "banked",
+            "simulated": 100.0,
+            "shed": 99,
+            "error": 1.0,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "has_card",
+            "simulated": 90.0,
+            "shed": 97,
+            "error": -7.0,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "carried_balance",
+            "simulated": 44.4,
+            "shed": 37,
+            "error": 7.4,
+            "within": true,
+            "n": 36
+          },
+          {
+            "question": "used_bnpl",
+            "simulated": 32.5,
+            "shed": 12,
+            "error": 20.5,
+            "within": false,
+            "n": 40
+          },
+          {
+            "question": "paid_overdraft",
+            "simulated": 25.0,
+            "shed": 6,
+            "error": 19.0,
+            "within": false,
+            "n": 40
+          },
+          {
+            "question": "card_fraud",
+            "simulated": 32.5,
+            "shed": 17,
+            "error": 15.5,
+            "within": false,
+            "n": 40
+          },
+          {
+            "question": "nonbank_check",
+            "simulated": 17.5,
+            "shed": 5,
+            "error": 12.5,
+            "within": false,
+            "n": 40
+          }
+        ],
+        "within": 3,
+        "mae": 11.8,
+        "trusted": false
+      },
+      "reactions": {
+        "a_plain": {
+          "n": 36,
+          "setup_within_week": 36.1,
+          "suspects_scam": 33.3,
+          "close_or_move": 0.0,
+          "use_less": 8.3,
+          "quotes": [
+            "Five minutes in the app I already have, I'll just do it tonight.",
+            "March is a ways off, I'll get to it when my wife reminds me.",
+            "I work twelve-hour shifts, I'll do it on my day off sometime.",
+            "I'll call the number on the back of my card before I touch anything."
+          ]
+        },
+        "b_benefits": {
+          "n": 36,
+          "setup_within_week": 50.0,
+          "suspects_scam": 38.9,
+          "close_or_move": 2.8,
+          "use_less": 19.4,
+          "quotes": [
+            "I'll set it up, though I doubt I'll bother with the shopping portal.",
+            "Sounds like marketing, I'll deal with the login later.",
+            "Ten percent back online? I buy everything on Amazon and Target, sign me up.",
+            "Ten percent cash back is exactly what a crook would write, I'm putting more on my other card for now."
+          ]
+        },
+        "c_security": {
+          "n": 36,
+          "setup_within_week": 55.6,
+          "suspects_scam": 0.0,
+          "close_or_move": 0.0,
+          "use_less": 2.8,
+          "quotes": [
+            "Nice that they told me not to click anything, I'll go straight to the app.",
+            "This one sounded serious enough that I did it between patients.",
+            "Good to know, but it'll probably sit until closer to March.",
+            "Telling me not to click their own email is the first sensible thing a bank has said in years."
+          ]
+        }
+      },
+      "best_notice": "c_security",
+      "recommendation": null
+    },
+    {
+      "id": "age_18_29",
+      "label": "Age 18 to 29",
+      "people": 40,
+      "calibration": {
+        "rows": [
+          {
+            "question": "banked",
+            "simulated": 92.5,
+            "shed": 88,
+            "error": 4.5,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "has_card",
+            "simulated": 70.0,
+            "shed": 65,
+            "error": 5.0,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "carried_balance",
+            "simulated": 64.3,
+            "shed": 46,
+            "error": 18.3,
+            "within": false,
+            "n": 28
+          },
+          {
+            "question": "used_bnpl",
+            "simulated": 57.5,
+            "shed": 22,
+            "error": 35.5,
+            "within": false,
+            "n": 40
+          },
+          {
+            "question": "paid_overdraft",
+            "simulated": 40.5,
+            "shed": 15,
+            "error": 25.5,
+            "within": false,
+            "n": 37
+          },
+          {
+            "question": "card_fraud",
+            "simulated": 17.5,
+            "shed": 9,
+            "error": 8.5,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "nonbank_check",
+            "simulated": 30.0,
+            "shed": 17,
+            "error": 13.0,
+            "within": false,
+            "n": 40
+          }
+        ],
+        "within": 3,
+        "mae": 15.8,
+        "trusted": false
+      },
+      "reactions": {
+        "a_plain": {
+          "n": 28,
+          "setup_within_week": 32.1,
+          "suspects_scam": 25.0,
+          "close_or_move": 0.0,
+          "use_less": 7.1,
+          "quotes": [
+            "I'll probably do it when the app makes me, or ask my dad.",
+            "I saw the acquisition news already, so I'll do it in the app and move on.",
+            "I'll get to it eventually, I just don't have five minutes this week.",
+            "Bank emails asking me to make a new login sound sketchy, I'll wait and see."
+          ]
+        },
+        "b_benefits": {
+          "n": 28,
+          "setup_within_week": 35.7,
+          "suspects_scam": 39.3,
+          "close_or_move": 0.0,
+          "use_less": 10.7,
+          "quotes": [
+            "Cash back on online shopping? Yeah, I'll set that up tonight.",
+            "Portal offers are usually meh, but no reason not to set it up.",
+            "Nice perks I guess, but it's going on the to-do pile.",
+            "If I can get cash back I'll take it, I need every dollar."
+          ]
+        },
+        "c_security": {
+          "n": 28,
+          "setup_within_week": 60.7,
+          "suspects_scam": 0.0,
+          "close_or_move": 0.0,
+          "use_less": 3.6,
+          "quotes": [
+            "It says to just use the app, so that seems fine, I'll do it.",
+            "Good that they say not to click links; I'll go through the app.",
+            "Seems legit, I'll do it before March when I remember.",
+            "OK they told me not to click anything, so I'll just open the app."
+          ]
+        }
+      },
+      "best_notice": "c_security",
+      "recommendation": null
+    },
+    {
+      "id": "age_30_44",
+      "label": "Age 30 to 44",
+      "people": 40,
+      "calibration": {
+        "rows": [
+          {
+            "question": "banked",
+            "simulated": 90.0,
+            "shed": 92,
+            "error": -2.0,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "has_card",
+            "simulated": 77.5,
+            "shed": 78,
+            "error": -0.5,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "carried_balance",
+            "simulated": 51.6,
+            "shed": 50,
+            "error": 1.6,
+            "within": true,
+            "n": 31
+          },
+          {
+            "question": "used_bnpl",
+            "simulated": 40.0,
+            "shed": 21,
+            "error": 19.0,
+            "within": false,
+            "n": 40
+          },
+          {
+            "question": "paid_overdraft",
+            "simulated": 41.7,
+            "shed": 16,
+            "error": 25.7,
+            "within": false,
+            "n": 36
+          },
+          {
+            "question": "card_fraud",
+            "simulated": 25.0,
+            "shed": 13,
+            "error": 12.0,
+            "within": false,
+            "n": 40
+          },
+          {
+            "question": "nonbank_check",
+            "simulated": 42.5,
+            "shed": 15,
+            "error": 27.5,
+            "within": false,
+            "n": 40
+          }
+        ],
+        "within": 3,
+        "mae": 12.6,
+        "trusted": false
+      },
+      "reactions": {
+        "a_plain": {
+          "n": 31,
+          "setup_within_week": 45.2,
+          "suspects_scam": 25.8,
+          "close_or_move": 0.0,
+          "use_less": 3.2,
+          "quotes": [
+            "Five minutes in the app, fine, I'll do it while the kids are in the bath.",
+            "Got burned by fraud last year, I'm not touching any email about my card until I call them.",
+            "I'll verify it in the app itself and set it up so autopay doesn't break.",
+            "I'll show it to my husband, he's the one who does the online account stuff."
+          ]
+        },
+        "b_benefits": {
+          "n": 31,
+          "setup_within_week": 51.6,
+          "suspects_scam": 38.7,
+          "close_or_move": 0.0,
+          "use_less": 9.7,
+          "quotes": [
+            "Cash back on online stuff is basically where all my money goes, so sure.",
+            "10% cash back sounds exactly like what a scammer would send.",
+            "Portal offers are mostly gimmicks, but I need the login anyway.",
+            "We don't travel much, so I'll let Matt get to it whenever."
+          ]
+        },
+        "c_security": {
+          "n": 31,
+          "setup_within_week": 48.4,
+          "suspects_scam": 6.5,
+          "close_or_move": 0.0,
+          "use_less": 0.0,
+          "quotes": [
+            "I like that it tells me to just use the app, makes it feel legit.",
+            "Okay that sounds real, but I'm on the road and I'll deal with it when the old login quits.",
+            "This is how these notices should be written, done in five minutes.",
+            "Good to know they won't call, I'll pass it along to him."
+          ]
+        }
+      },
+      "best_notice": "b_benefits",
+      "recommendation": null
+    },
+    {
+      "id": "age_45_59",
+      "label": "Age 45 to 59",
+      "people": 40,
+      "calibration": {
+        "rows": [
+          {
+            "question": "banked",
+            "simulated": 90.0,
+            "shed": 96,
+            "error": -6.0,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "has_card",
+            "simulated": 77.5,
+            "shed": 86,
+            "error": -8.5,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "carried_balance",
+            "simulated": 58.1,
+            "shed": 52,
+            "error": 6.1,
+            "within": true,
+            "n": 31
+          },
+          {
+            "question": "used_bnpl",
+            "simulated": 37.5,
+            "shed": 17,
+            "error": 20.5,
+            "within": false,
+            "n": 40
+          },
+          {
+            "question": "paid_overdraft",
+            "simulated": 38.9,
+            "shed": 13,
+            "error": 25.9,
+            "within": false,
+            "n": 36
+          },
+          {
+            "question": "card_fraud",
+            "simulated": 25.0,
+            "shed": 17,
+            "error": 8.0,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "nonbank_check",
+            "simulated": 40.0,
+            "shed": 11,
+            "error": 29.0,
+            "within": false,
+            "n": 40
+          }
+        ],
+        "within": 4,
+        "mae": 14.9,
+        "trusted": false
+      },
+      "reactions": {
+        "a_plain": {
+          "n": 31,
+          "setup_within_week": 38.7,
+          "suspects_scam": 29.0,
+          "close_or_move": 0.0,
+          "use_less": 12.9,
+          "quotes": [
+            "I'll get to it before March, just not this week with everything going on.",
+            "Five minutes in the app, easier to just get it done now.",
+            "I have to wait for my daughter to look at it, I don't want to do something wrong.",
+            "Smelled like a phish at first, so I called the number on the back of the card before doing anything."
+          ]
+        },
+        "b_benefits": {
+          "n": 31,
+          "setup_within_week": 48.4,
+          "suspects_scam": 32.3,
+          "close_or_move": 0.0,
+          "use_less": 16.1,
+          "quotes": [
+            "Ten percent cash back sounds like one of those come-on emails, so I'm not touching it yet.",
+            "I'll set it up, though I doubt I'll bother with the shopping portal.",
+            "When they talk about free money it is usually a trick.",
+            "Bank gets bought and the first thing they do is pitch me deals; I'll lean on my other card."
+          ]
+        },
+        "c_security": {
+          "n": 31,
+          "setup_within_week": 58.1,
+          "suspects_scam": 3.2,
+          "close_or_move": 0.0,
+          "use_less": 0.0,
+          "quotes": [
+            "It told me not to click anything, so I just opened the app on my break and did it.",
+            "Good that they say to use the existing app; that's how it should be done.",
+            "This one seems real, but I still want my daughter to help me with the app on Sunday.",
+            "At least they're telling me how to spot fakes, which is what I care about."
+          ]
+        }
+      },
+      "best_notice": "c_security",
+      "recommendation": null
+    },
+    {
+      "id": "age_60p",
+      "label": "Age 60 or older",
+      "people": 40,
+      "calibration": {
+        "rows": [
+          {
+            "question": "banked",
+            "simulated": 95.0,
+            "shed": 98,
+            "error": -3.0,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "has_card",
+            "simulated": 80.0,
+            "shed": 92,
+            "error": -12.0,
+            "within": false,
+            "n": 40
+          },
+          {
+            "question": "carried_balance",
+            "simulated": 50.0,
+            "shed": 36,
+            "error": 14.0,
+            "within": false,
+            "n": 32
+          },
+          {
+            "question": "used_bnpl",
+            "simulated": 25.0,
+            "shed": 9,
+            "error": 16.0,
+            "within": false,
+            "n": 40
+          },
+          {
+            "question": "paid_overdraft",
+            "simulated": 26.3,
+            "shed": 5,
+            "error": 21.3,
+            "within": false,
+            "n": 38
+          },
+          {
+            "question": "card_fraud",
+            "simulated": 22.5,
+            "shed": 22,
+            "error": 0.5,
+            "within": true,
+            "n": 40
+          },
+          {
+            "question": "nonbank_check",
+            "simulated": 37.5,
+            "shed": 9,
+            "error": 28.5,
+            "within": false,
+            "n": 40
+          }
+        ],
+        "within": 2,
+        "mae": 13.6,
+        "trusted": false
+      },
+      "reactions": {
+        "a_plain": {
+          "n": 32,
+          "setup_within_week": 34.4,
+          "suspects_scam": 28.1,
+          "close_or_move": 0.0,
+          "use_less": 9.4,
+          "quotes": [
+            "I'll do it Sunday when I go over my bills, five minutes is nothing.",
+            "I don't have any app and I don't trust an email telling me my bank got sold.",
+            "I'll get to it eventually, March is a ways off and I'm working four nights this week.",
+            "Bank mergers happen; I'll set it up through the app tonight."
+          ]
+        },
+        "b_benefits": {
+          "n": 32,
+          "setup_within_week": 40.6,
+          "suspects_scam": 50.0,
+          "close_or_move": 0.0,
+          "use_less": 18.8,
+          "quotes": [
+            "Ten percent back sounds like a come-on, but I'll check it through the app I already have.",
+            "Nobody gives you ten percent for free, that's a scam.",
+            "Cash back on online stuff I already buy? I'll do it on my break.",
+            "Five percent on rental cars is actually useful for our trips, so I'm in."
+          ]
+        },
+        "c_security": {
+          "n": 32,
+          "setup_within_week": 50.0,
+          "suspects_scam": 3.1,
+          "close_or_move": 0.0,
+          "use_less": 0.0,
+          "quotes": [
+            "I like that they told me not to click anything, so I'll open my app and do it.",
+            "Sounds legit, but I'll just call the number on the back of my card and mail my payment like always.",
+            "Fine, I'll set it up before the deadline, just not this week.",
+            "Good instructions, that's exactly how it should be done."
+          ]
+        }
+      },
+      "best_notice": "c_security",
+      "recommendation": null
+    }
+  ],
+  "trusted": 0,
+  "run": {
+    "model": "claude-opus-5-5",
+    "calls": 16,
+    "people": 320,
+    "input_tokens": 34700,
+    "output_tokens": 110687,
+    "cost_usd": 2.35,
+    "mean_latency_s": 59.4
+  },
+  "source": {
+    "name": "Board of Governors of the Federal Reserve System, Economic Well-Being of U.S. Households in 2025 (SHED), May 2026",
+    "pages": {
+      "credit": "https://www.federalreserve.gov/publications/2026-economic-well-being-of-us-households-in-2025-credit.htm",
+      "banking": "https://www.federalreserve.gov/publications/2026-economic-well-being-of-us-households-in-2025-banking.htm"
+    }
+  }
+}
